@@ -48,8 +48,8 @@ class CELoss(nn.Module):
         super(CELoss, self).__init__()
 
     def forward(self, inputs, targets):
-        inputs = F.sigmoid(inputs)
-        targets = F.sigmoid(targets)
+        # inputs = F.sigmoid(inputs)
+        # targets = F.sigmoid(targets)
 
         inputs = inputs.view(-1, 1)
         targets = targets.view(-1, 1)
@@ -58,6 +58,18 @@ class CELoss(nn.Module):
         targets = torch.concat([targets, (1 - targets)], dim=1)
 
         loss = F.binary_cross_entropy(inputs, targets, reduction='mean')
+
+        return loss
+
+
+class MSELoss(nn.Module):
+
+    def __init__(self):
+        super(MSELoss, self).__init__()
+
+    def forward(self, inputs, targets):
+
+        loss = F.mse_loss(inputs, targets, reduction='mean')
 
         return loss
 
