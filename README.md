@@ -31,6 +31,13 @@ python OBB_Prompt_based_Segmentation_Module/OSM_KD/inference.py
 ```
 
 # Citation
-
+```
+@InProceedings{zhou2024completely,
+      title={Completely Occluded and Dense Object Instance Segmentation Using Box Prompt-Based Segmentation Foundation Models}, 
+      author={Zhen Zhou and Junfeng Fan and Yunkai Ma and Sihan Zhao and Fengshui Jing and Min Tan},
+      year={2024},
+      booktitle={arXiv preprint arXiv:2401.08174},
+}
+```
 
 
