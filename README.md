@@ -62,26 +62,26 @@ Self-designed robotic vision system for completely occluded object IS in the ind
 
 # Training
 ```
-# train oriented bounding box detection module (ODM)
+# Train OBB detection module (e.g., Oriented R-CNN with ResNet-18 as the backbone)
 python OBB_Detection_Module/tools/train.py
 
-# train OBB prompt-based segmentation module (OSM)
+# Train OBB prompt-based segmentation module (``OSM'' for short, we use it to train the teacher model)
 python OBB_Prompt_based_Segmentation_Module/OSM/train.py
 
-# train OBB prompt-based segmentation module for knowledge distillation (OSM-KD)
+# Train OBB prompt-based segmentation module for knowledge distillation (``OSM_KD'' for short, we use it to train the student model)
 python OBB_Prompt_based_Segmentation_Module/OSM_KD/train.py
 
 ```
 
 # Inference
 ```
-# test oriented bounding box detection module (ODM)
+# Test oriented bounding box detection module (e.g., Oriented R-CNN with ResNet-18 as the backbone)
 python OBB_Detection_Module/tools/test.py
 
-# test OBB prompt-based segmentation module (OSM)
+# Test OBB prompt-based segmentation module (``OSM'' for short, we use it to test the teacher model)
 python OBB_Prompt_based_Segmentation_Module/OSM/inference.py
 
-# test OBB prompt-based segmentation module for knowledge distillation (OSM-KD)
+# Test OBB prompt-based segmentation module for knowledge distillation (``OSM_KD'' for short, we use it to test the student model)
 python OBB_Prompt_based_Segmentation_Module/OSM_KD/inference.py
 ```
 
