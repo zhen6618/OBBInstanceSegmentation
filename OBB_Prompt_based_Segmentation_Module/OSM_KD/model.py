@@ -24,7 +24,7 @@ class Model(nn.Module):
             for param in self.model.mask_decoder.parameters():
                 param.requires_grad = False
 
-    def forward(self, images, bboxes):
+    def forward(self, images, bboxes, KD_train_mode=False):
         _, _, H, W = images.shape
         image_embeddings = self.model.image_encoder(images)  # (2, 256, 64, 64)
         pred_masks = []
@@ -38,7 +38,7 @@ class Model(nn.Module):
 
             low_res_masks, iou_predictions = self.model.mask_decoder(
                 image_embeddings=embedding.unsqueeze(0),  # image_embeddings  (1, 256, 256, 64)
-                image_pe=self.model.prompt_encoder.get_dense_pe(),  # positional encoding  (1, 256, 64, 64)
+                image_pe=self.model.prompt_encoder.get_dense_pe(),  # positional encoding 图像位置编码(attention用)  (1, 256, 64, 64)
                 sparse_prompt_embeddings=sparse_embeddings,  # embeddings of the points and boxes  (1, 3, 256)
                 dense_prompt_embeddings=dense_embeddings,  # embeddings of the mask inputs  (1, 256, 64, 64)
                 multimask_output=False,
@@ -53,7 +53,10 @@ class Model(nn.Module):
             pred_masks.append(masks.squeeze(1))
             ious.append(iou_predictions)
 
-        return pred_masks, ious
+        if KD_train_mode:
+            return pred_masks, ious, sparse_embeddings
+        else:
+            return pred_masks, ious
 
     def get_predictor(self):
         return SamPredictor(self.model)
