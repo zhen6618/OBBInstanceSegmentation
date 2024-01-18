@@ -6,6 +6,43 @@ Completely occluded and dense object instance segmentation (IS) is an important 
 <img src="https://github.com/zhen6618/OBBInstanceSegmentation/blob/master/Methods_Overview.png" width="1100px">
 </div>
 
+# Method
+1. CFNet 
+<div align=center>
+<img src="https://github.com/zhen6618/OBBInstanceSegmentation/blob/master/Methods_Overview.png" width="1100px">
+</div>
+
+2. OBB Prompt Encoder
+<div align=center>
+<img src="https://github.com/zhen6618/OBBInstanceSegmentation/blob/master/Methods_Overview.png" width="1100px">
+</div>
+
+3. Knowledge Distillation on the OBB Prompt Encoder and Mask Decoder
+<div align=center>
+<img src="https://github.com/zhen6618/OBBInstanceSegmentation/blob/master/Methods_Overview.png" width="1100px">
+</div>
+
+# Robot System Design
+<div align=center>
+<img src="https://github.com/zhen6618/OBBInstanceSegmentation/blob/master/Methods_Overview.png" width="1100px">
+</div>
+
+# Experiments
+1. Completely Occluded Object IS
+<div align=center>
+<img src="https://github.com/zhen6618/OBBInstanceSegmentation/blob/master/Methods_Overview.png" width="1100px">
+      
+<img src="https://github.com/zhen6618/OBBInstanceSegmentation/blob/master/Methods_Overview.png" width="1100px">
+</div>
+
+2. Dense Object IS
+<div align=center>
+<img src="https://github.com/zhen6618/OBBInstanceSegmentation/blob/master/Methods_Overview.png" width="1100px">
+      
+<img src="https://github.com/zhen6618/OBBInstanceSegmentation/blob/master/Methods_Overview.png" width="1100px">
+</div>
+   
+
 # Training
 ```
 # train oriented bounding box detection module (ODM)
