@@ -68,7 +68,7 @@ python OBB_Detection_Module/tools/train.py
 # Train OBB prompt-based segmentation module (``OSM'' for short, we use it to train the teacher model)
 python OBB_Prompt_based_Segmentation_Module/OSM/train.py
 
-# Train OBB prompt-based segmentation module for knowledge distillation (``OSM_KD'' for short, we use it to train the student model)
+# Train OBB prompt-based segmentation module with knowledge distillation (``OSM_KD'' for short, we use it to train the student model)
 python OBB_Prompt_based_Segmentation_Module/OSM_KD/train.py
 
 ```
@@ -81,7 +81,7 @@ python OBB_Detection_Module/tools/test.py
 # Test OBB prompt-based segmentation module (``OSM'' for short, we use it to test the teacher model)
 python OBB_Prompt_based_Segmentation_Module/OSM/inference.py
 
-# Test OBB prompt-based segmentation module for knowledge distillation (``OSM_KD'' for short, we use it to test the student model)
+# Test OBB prompt-based segmentation module with knowledge distillation (``OSM_KD'' for short, we use it to test the student model)
 python OBB_Prompt_based_Segmentation_Module/OSM_KD/inference.py
 ```
 
