@@ -98,5 +98,7 @@ python OBB_Prompt_based_Segmentation_Module/OSM_KD/inference.py
 # Acknowledgement
 [lightning-sam](https://github.com/luca-medeiros/lightning-sam?tab=readme-ov-file)
 
+[mmrotate](https://github.com/open-mmlab/mmrotate)
+
 [segment-anything](https://github.com/facebookresearch/segment-anything)
 
