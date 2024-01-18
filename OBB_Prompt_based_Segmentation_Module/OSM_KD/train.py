@@ -22,10 +22,11 @@ from torchstat import stat
 from thop import profile
 from imutils import perspective
 import datetime
+from scipy.ndimage import convolve1d
 from pathlib import Path
 import math
 
-from losses import DiceLoss, FocalLoss, KLDLoss, CELoss, calc_iou_t
+from losses import DiceLoss, FocalLoss, KLDLoss, CELoss, calc_iou_t, MSELoss
 
 torch.set_float32_matmul_precision('high')
 
@@ -99,7 +100,7 @@ def draw_mask(image, bboxes, pred_mask, gt_mask, epoch, iter, save_path='runs/va
     # draw boxes
     'OBB'
     for box in bboxes[0]:
-        box = box.cpu().numpy().reshape(-1)  # (N,)  x1, y1(0-1), x2, y2(0-1), angle(0-180)
+        box = box.cpu().numpy().reshape(-1) 
         x_min, y_min, x_max, y_max, angle = box[0], box[1], box[2], box[3], box[4]
         p1 = np.array([x_min, y_min]) * image.shape[2]
         p2 = np.array([x_max, y_min]) * image.shape[2]
@@ -128,14 +129,15 @@ def draw_mask(image, bboxes, pred_mask, gt_mask, epoch, iter, save_path='runs/va
     show_image = cv2.cvtColor(show_image.astype("uint8"), cv2.COLOR_RGB2BGR)
 
     'overlap'
+    # 1. restore from tensor to image
     image = torch.squeeze(image, dim=0).cpu()
-    numpy_image = image.permute(1, 2, 0).numpy()
-    restored_image = (numpy_image * 255).astype(np.uint8)
+    numpy_image = image.permute(1, 2, 0).numpy()  
+    restored_image = (numpy_image * 255).astype(np.uint8) 
     restored_image = cv2.cvtColor(restored_image, cv2.COLOR_RGB2BGR)
     # cv2.imwrite("restored_debug.png", restored_image)
 
     # 2. overlap
-    alpha = 0.6
+    alpha = 0.6  
     show_image = cv2.addWeighted(restored_image, 1 - alpha, show_image, alpha, 0)
 
     cv2.imwrite(save_path, show_image)
@@ -177,12 +179,12 @@ def validate(fabric: L.Fabric, model: Model, val_dataloader: DataLoader, epoch: 
 
     inference_time = (t2 - t1) * 1000  # ms
     # print('model inference time: ', inference_time, 'ms.')
-    with open("runs/val/log.txt", 'a') as f:
-        f.write('Val: [' + str(epoch) + '] - ')
+    with open("runs/val/log.txt", 'a') as f: 
+        f.write('Val: [' + str(epoch) + '] - ')  
         f.write('Mean IoU: [' + str(torch.round(ious.avg, decimals=4)) + '] ')
         f.write('Inference Time: [' + str(round(inference_time, 3)) + 'ms]')
-        f.write('\n')
-        f.flush()
+        f.write('\n') 
+        f.flush()  
     f.close()
 
     fabric.print(f'Validation [{epoch}]: Mean IoU: [{ious.avg:.4f}] -- Mean F1: [{f1_scores.avg:.4f}]')
@@ -210,6 +212,7 @@ def train_sam(
     dice_loss = DiceLoss()
     # mask_loss = KLDLoss()
     mask_loss = CELoss()
+    embedding_loss = MSELoss()
 
     for epoch in range(1, cfg.num_epochs):
         batch_time = AverageMeter()
@@ -224,7 +227,7 @@ def train_sam(
         validated = False
 
         for iter, data in enumerate(train_dataloader):
-            if epoch > 1 and epoch % cfg.eval_interval == 0 and not validated:
+            if epoch > 1 and epoch % cfg.eval_interval == 0 and not validated: 
             # if epoch % cfg.eval_interval == 0 and not validated:
                 validate(fabric, student_model, val_dataloader, epoch)
                 validated = True
@@ -234,10 +237,8 @@ def train_sam(
             batch_size = images.size(0)
 
             'inference'
-            # student_pred_masks, student_iou_predictions, student_sparse_embeddings, student_dense_embeddings = student_model(images, bboxes)
-            # teacher_pred_masks, teacher_iou_predictions, teacher_sparse_embeddings, teacher_dense_embeddings = teacher_model(images, bboxes)
-            student_pred_masks, _ = student_model(images, bboxes)
-            teacher_pred_masks, _ = teacher_model(images, bboxes)
+            student_pred_masks, student_iou_predictions, student_sparse_embeddings = student_model(images, bboxes, KD_train_mode=True)
+            teacher_pred_masks, teacher_iou_predictions, teacher_sparse_embeddings = teacher_model(images, bboxes, KD_train_mode=True)
 
             num_masks = sum(len(pred_mask) for pred_mask in student_pred_masks)
             loss_focal = torch.tensor(0., device=fabric.device)
@@ -246,30 +247,42 @@ def train_sam(
 
             loss_mask_t = torch.tensor(0., device=fabric.device)  # mask decoder from teacher
             loss_iou_t = torch.tensor(0., device=fabric.device)  # mask decoder from teacher
+            loss_embedding_t = torch.tensor(0., device=fabric.device)  # prompt decoder from teacher
 
             'student vs ground truth'
-            gt_kernel_size = 5
-            for pred_mask, gt_mask in zip(student_pred_masks, gt_masks):
-
-                gt_mask = edge_smooth(gt_mask, kernel_size=gt_kernel_size)
-
-                loss_focal += focal_loss(pred_mask, gt_mask, num_masks)
-                loss_dice += dice_loss(pred_mask, gt_mask, num_masks)
+            # gt_kernel_size = 5
+            # for pred_mask, gt_mask in zip(student_pred_masks, gt_masks):
+            #
+            #     gt_mask = edge_smooth(gt_mask, kernel_size=gt_kernel_size)
+            #
+            #     loss_focal += focal_loss(pred_mask, gt_mask, num_masks)
+            #     loss_dice += dice_loss(pred_mask, gt_mask, num_masks)
 
             loss_total_gt = 20. * loss_focal + loss_dice + loss_iou
 
             'student vs teacher'
+            # mask decoder
             t_kernel_size = 5
             sigma = 1.0
 
             for student_pred_mask, teacher_pred_mask in zip(student_pred_masks, teacher_pred_masks):
+                teacher_pred_mask = F.sigmoid(teacher_pred_mask)
+                student_pred_mask = F.sigmoid(student_pred_mask)
 
                 teacher_pred_mask = gaussian_smooth(teacher_pred_mask, kernel_size=t_kernel_size, sigma=sigma)  # teacher label smoothing
                 # student_pred_mask = gaussian_smooth(student_pred_mask, kernel_size=t_kernel_size, sigma=sigma)  # student label smoothing
 
                 loss_mask_t += mask_loss(student_pred_mask, teacher_pred_mask)  # decoder
 
-            loss_total_t = loss_mask_t + loss_iou_t
+            # OBB prompt encoder
+            delta = 0.3
+            teacher_sparse_embeddings = gaussian_smooth_1d(teacher_sparse_embeddings, kernel_size=t_kernel_size, delta=delta)
+
+            loss_embedding_t = embedding_loss(student_sparse_embeddings, teacher_sparse_embeddings)  # OBB prompt encoder
+
+
+            'sum loss'
+            loss_total_t = 0.9 * loss_mask_t + 0.1 * loss_embedding_t
 
             gamma = 0.005
             loss_total = gamma * loss_total_gt + (1 - gamma) * (sigma**2 + ((t_kernel_size - 1) / 2)**2) * loss_total_t
@@ -362,7 +375,6 @@ def main(student_cfg: Box, teacher_cfg: Box) -> None:
     student_model = Model(student_cfg)
     student_model.setup(student_fabric.device)
 
-
     print("****************************student_model******************************")
     print(student_model)
     # image = torch.randn(1, 3, 1024, 1024).to(student_fabric.device)
@@ -409,12 +421,13 @@ def main(student_cfg: Box, teacher_cfg: Box) -> None:
         with open('runs/val/log.txt', 'w') as file:
             file.truncate(0)
 
-    torch.cuda.reset_max_memory_allocated()
+    torch.cuda.reset_max_memory_allocated()  
 
     train_sam(student_cfg, student_fabric, student_model, teacher_model, student_optimizer, student_scheduler, train_data, val_data)
     validate(student_fabric, student_model, val_data, epoch=0)
 
-    max_memory = get_max_memory_allocated()
+    max_memory = get_max_memory_allocated() 
+    print(f"max_memory: {max_memory:.2f} MB")  # vit_h: 5822 MB; vit_l: 4485 MB; vit_b: 2854 MB; vit_tiny: 375 MB
 
 
 def  gaussian_smooth(teacher_mask, kernel_size=3, sigma=1.0):
@@ -428,22 +441,45 @@ def  gaussian_smooth(teacher_mask, kernel_size=3, sigma=1.0):
             x, y = i - kernel_center, j - kernel_center
             kernel[i, j] = np.exp(-(x ** 2 + y ** 2) / (2 * sigma ** 2))
             total += kernel[i, j]
-
     kernel /= total
 
     device = teacher_mask.device
     teacher_mask = teacher_mask.cpu().numpy()
 
     for k in range(len(teacher_mask)):
-        teacher_mask[k] = cv2.filter2D(teacher_mask[k], -1, kernel)
+        teacher_mask[k] = cv2.filter2D(teacher_mask[k], -1, kernel)  
     teacher_mask = torch.from_numpy(teacher_mask).to(device)
 
     return teacher_mask
 
 
+def  gaussian_smooth_1d(sparse_embeddings, kernel_size=3, delta=0.3):
+    kernel = np.zeros(kernel_size, dtype=np.float32)
+
+    kernel_center = kernel_size // 2
+    total = 0
+    for i in range(kernel_size):
+        x = i - kernel_center
+        kernel[i] = np.exp(-(x ** 2) / (2 * delta ** 2))
+        total += kernel[i]
+    kernel /= total
+
+    device = sparse_embeddings.device
+    teacher_embeddings = sparse_embeddings.cpu().numpy()
+
+    teacher_embeddings = np.squeeze(teacher_embeddings)
+    for t in range(len(teacher_embeddings)):
+        teacher_embeddings[t] = convolve1d(teacher_embeddings[t], kernel)
+    teacher_embeddings = teacher_embeddings[None, :]
+
+    teacher_embeddings = torch.from_numpy(teacher_embeddings).to(device)
+
+    return teacher_embeddings
+
+
 def edge_smooth(gt_mask, kernel_size=3):
     device = gt_mask.device
-    for k in range(len(gt_mask)):
+    for k in range(len(gt_mask)): 
         temp_mask = torch.zeros(gt_mask[k].shape[0]-(kernel_size-1), gt_mask[k].shape[1]-(kernel_size-1)).to(device)
 
         for i in range(kernel_size):
