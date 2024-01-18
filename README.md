@@ -47,16 +47,16 @@ Self-designed robotic vision system for completely occluded object IS in the ind
 # Experiments
 1. Completely Occluded Object IS
 <div align=center>
-<img src="https://github.com/zhen6618/OBBInstanceSegmentation/blob/master/Methods_Overview.png" width="1100px">
+<img src="https://github.com/zhen6618/OBBInstanceSegmentation/blob/master/figure/Completely_Occluded_Vis.png" width="900px">
       
-<img src="https://github.com/zhen6618/OBBInstanceSegmentation/blob/master/Methods_Overview.png" width="1100px">
+<img src="https://github.com/zhen6618/OBBInstanceSegmentation/blob/master/figure/Completely_Occluded_Experiments.png" width="450px">
 </div>
 
 2. Dense Object IS
 <div align=center>
-<img src="https://github.com/zhen6618/OBBInstanceSegmentation/blob/master/Methods_Overview.png" width="1100px">
+<img src="https://github.com/zhen6618/OBBInstanceSegmentation/blob/master/figure/Dense_Vis.png" width="900px">
       
-<img src="https://github.com/zhen6618/OBBInstanceSegmentation/blob/master/Methods_Overview.png" width="1100px">
+<img src="https://github.com/zhen6618/OBBInstanceSegmentation/blob/master/figure/Dense_Experiments.png" width="450px">
 </div>
    
 
