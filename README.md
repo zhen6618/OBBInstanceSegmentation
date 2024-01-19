@@ -14,7 +14,7 @@ Examples of completely occluded and dense objects. Purple: unoccluded reference 
 # Method
 1. CFNet 
 <div align=center>
-<img src="https://github.com/zhen6618/OBBInstanceSegmentation/blob/master/figure/Methods_Overview.png" width="1000px"> 
+<img src="https://github.com/zhen6618/OBBInstanceSegmentation/blob/master/figure/Methods_Overview_.png" width="1000px"> 
 </div>
 <p align="justify">
 Architecture of the proposed CFNet. Compared with dense object IS, completely occluded object IS requires more post-processing steps to transform occluder instances into occludee instances. For clarity of presentation, only one instance is depicted in each result image of IS.
