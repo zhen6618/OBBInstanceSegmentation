@@ -8,7 +8,7 @@ Different from general instance segmentation (IS) tasks, occluded object IS in r
 <img src="https://github.com/zhen6618/OBBInstanceSegmentation/blob/master/figure/Task_Introduction.png" width="400px">
 </div>
 <p align="justify">
-Examples of completely occluded and dense objects. Purple: unoccluded reference holes, yellow: horizontal bounding boxes that contain dense vehicles, green: oriented bounding boxes that contain dense vehicles or visible occluder (i.e., bolts or nuts) contours that are in the same planes as reference holes, orange: visible occluder contours that are in the same planes as reference holes, red: dense vehicles or occluders, blue: occluded reference holes.
+Examples of occluded and dense objects. Purple: unoccluded reference holes, yellow: horizontal bounding boxes that contain dense vehicles, green: oriented bounding boxes that contain dense vehicles or visible occluder (i.e., bolts or nuts) contours that are in the same planes as reference holes, orange: visible occluder contours that are in the same planes as reference holes, red: dense vehicles or occluders, blue: occluded reference holes.
 </p>
 
 # Method
