@@ -17,7 +17,7 @@ Examples of completely occluded and dense objects. Purple: unoccluded reference 
 <img src="https://github.com/zhen6618/OBBInstanceSegmentation/blob/master/figure/Methods_Overview_.png" width="1000px"> 
 </div>
 <p align="justify">
-Architecture of the proposed CFNet. Compared with dense object IS, completely occluded object IS requires more post-processing steps to transform occluder instances into occludee instances. For clarity of presentation, only one instance is depicted in each result image of IS.
+Architecture of the proposed CFNet. Compared with dense object IS, occluded object IS requires more post-processing steps to transform occluder instances into occludee instances. For clarity of presentation, only one instance is depicted in each result image of IS.
 </p>
 
 2. OBB Prompt Encoder
@@ -41,11 +41,11 @@ The process of KD for the OBB prompt encoder and mask decoder. ``TE``, ``BE`` an
 <img src="https://github.com/zhen6618/OBBInstanceSegmentation/blob/master/figure/Industrial_Dataset.png" width="600px">
 </div>
 <p align="justify">
-Self-designed robotic vision system for completely occluded object IS in the industrial environment of the large commercial aircraft C919.
+Self-designed robotic system for occluded object IS in the industrial robot assembly environment of the large commercial aircraft C919.
 </p>
 
 # Experiments
-1. Completely Occluded Object IS
+1. Occluded Object IS
 <div align=center>
 <img src="https://github.com/zhen6618/OBBInstanceSegmentation/blob/master/figure/Completely_Occluded_Vis.png" width="900px">
       
