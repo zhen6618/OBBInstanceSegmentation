@@ -8,7 +8,7 @@ Occluded and dense object instance segmentation in robot vision measurement are 
 <img src="https://github.com/zhen6618/OBBInstanceSegmentation/blob/master/figure/Task_Introduction.png" width="500px">
 </div>
 <p align="justify">
-Examples of occluded (left) and dense (right) objects. Original objects are inside the corresponding black dotted boxes. Left: oriented bounding boxes (green) contain occluder (i.e., bolts or nuts) boundaries (orange) that are located at the contact surface between occluders (red) and occluded reference holes (blue). Right: dense vehicles (red) are surrounded by horizontal bounding boxes (yellow) or oriented bounding boxes (green).
+Examples of occluded (left) and dense (right) objects. Original objects are inside the corresponding black dotted boxes. Left: reference holes (blue) are occluded by bolts or nuts (i.e., occluders, red). Oriented bounding boxes (green) contain occluder boundaries (orange) that are located at the contact surface between occluders and occluded reference holes. Right: dense vehicles (red) are surrounded by horizontal bounding boxes (yellow) or oriented bounding boxes (green).
 </p>
 
 ## Method
