@@ -1,23 +1,23 @@
-# Occluded and Dense Object Instance Segmentation Using Box Prompt-Based Segmentation Foundation Models
+# A Unified Instance Segmentation Framework for Occluded and Dense Objects in Robot Vision Measurement
 <p align="justify">
-Different from general instance segmentation (IS) tasks, occluded object IS in robot assembly and dense object IS in unmanned aerial vehicle (UAV) measurements are two more challenging robotic tasks. To uniformly deal with these difficulties, this paper proposes a unified coarse-to-fine IS framework, CFNet, which uses box prompt-based segmentation foundation models (BSMs). Specifically, CFNet first detects oriented bounding boxes (OBBs) to distinguish instances and provide coarse localization information. Then, it predicts OBB prompt-related masks for fine segmentation. CFNet performs IS on occluders and utilizes prior geometric properties to predict occluded object instances, which overcomes the difficulty of current amodal IS methods in directly predicting occluded objects. In addition, based on BSMs, CFNet alleviates the over-dependence on bounding box detection performance of existing IS methods using OBBs, improving dense object IS performance. Moreover, to enable BSMs to handle OBB prompts, we propose a novel OBB prompt encoder. To make CFNet more lightweight, we perform knowledge distillation on it and introduce a Gaussian label smoothing method for soft teacher targets. Experimental results demonstrate that CFNet outperforms all tested IS methods on both industrial and public datasets.
+Occluded and dense object instance segmentation in robot vision measurement are two challenging tasks. To uniformly deal with them, this paper proposes a unified coarse-to-fine instance segmentation framework, CFNet, which uses box prompt-based segmentation foundation models (BSMs), e.g., Segment Anything Model. Specifically, CFNet first detects oriented bounding boxes (OBBs) to distinguish instances and provide coarse localization information. Then, it predicts OBB prompt-related masks for fine segmentation. CFNet performs instance segmentation with partial OBBs on occluders to predict occluded object instances, which overcomes the difficulty of existing amodal instance segmentation methods in directly predicting occluded objects. In addition, since OBBs only serve as prompts, CFNet alleviates the over-dependence on bounding box detection performance of current instance segmentation methods using OBBs. Moreover, to enable BSMs to handle OBB prompts, we propose a novel OBB prompt encoder. To make CFNet more lightweight, we perform knowledge distillation on it and introduce a Gaussian label smoothing method for teacher model outputs. Experimental results demonstrate that CFNet outperforms all tested instance segmentation methods on both industrial and public datasets. 
 </p>
 
 # Task
 <div align=center>
-<img src="https://github.com/zhen6618/OBBInstanceSegmentation/blob/master/figure/Task_Introduction.png" width="400px">
+<img src="https://github.com/zhen6618/OBBInstanceSegmentation/blob/master/figure/Task_Introduction_.png" width="500px">
 </div>
 <p align="justify">
-Examples of occluded and dense objects. Purple: unoccluded reference holes, yellow: horizontal bounding boxes that contain dense vehicles, green: oriented bounding boxes that contain dense vehicles or visible occluder (i.e., bolts or nuts) contours that are in the same planes as reference holes, orange: visible occluder contours that are in the same planes as reference holes, red: dense vehicles or occluders, blue: occluded reference holes.
+Examples of occluded (left) and dense (right) objects. Original objects are inside the corresponding black dotted boxes. Purple: unoccluded reference holes, yellow: horizontal bounding boxes that contain dense vehicles, green: oriented bounding boxes that contain dense vehicles or occluder (i.e., bolts or nuts) boundaries that are located at the contact surface between occluders and reference holes, orange: occluder boundaries that are located at the contact surface between occluders and reference holes, red: dense vehicles or occluders, blue: occluded reference holes.
 </p>
 
 # Method
 1. CFNet 
 <div align=center>
-<img src="https://github.com/zhen6618/OBBInstanceSegmentation/blob/master/figure/Methods_Overview_.png" width="1000px"> 
+<img src="https://github.com/zhen6618/OBBInstanceSegmentation/blob/master/figure/Methods_Overview.png" width="1000px"> 
 </div>
 <p align="justify">
-Architecture of the proposed CFNet. Compared with dense object IS, occluded object IS requires more post-processing steps to transform occluder instances into occludee instances. For clarity of presentation, only one instance is depicted in each result image of IS.
+Architecture of the proposed CFNet. Compared with dense object instance segmentation, occluded object instance segmentation needs more post-processing steps to transform occluder instances into occludee instances.
 </p>
 
 2. OBB Prompt Encoder
@@ -33,7 +33,7 @@ Architecture of the proposed OBB prompt encoder. The input is an OBB ($x, y, w, 
 <img src="https://github.com/zhen6618/OBBInstanceSegmentation/blob/master/figure/Knowledge_Distillation.png" width="500px">
 </div>
 <p align="justify">
-The process of KD for the OBB prompt encoder and mask decoder. ``TE``, ``BE`` and ``OE`` represent encoded feature embeddings with respect to the top-left point, bottom-right point and orientation of an OBB, respectively. ``GS`` stands for Gaussian smoothing.
+The process of knowledge distillation for the OBB prompt encoder and mask decoder. ``TE``, ``BE`` and ``OE`` represent encoded feature embeddings with respect to the top-left point, bottom-right point and orientation of an OBB, respectively. ``GS`` stands for Gaussian smoothing.
 </p>
 
 # Robot System Design
@@ -41,18 +41,18 @@ The process of KD for the OBB prompt encoder and mask decoder. ``TE``, ``BE`` an
 <img src="https://github.com/zhen6618/OBBInstanceSegmentation/blob/master/figure/Industrial_Dataset.png" width="600px">
 </div>
 <p align="justify">
-Self-designed robotic system for occluded object IS in the industrial robot assembly environment of the large commercial aircraft C919.
+Self-designed robotic system for occluded object instance segmentation in the industrial robot assembly environment of the large commercial aircraft C919.
 </p>
 
 # Experiments
-1. Occluded Object IS
+1. Occluded Object Instance Segmentation
 <div align=center>
 <img src="https://github.com/zhen6618/OBBInstanceSegmentation/blob/master/figure/Completely_Occluded_Vis.png" width="900px">
       
 <img src="https://github.com/zhen6618/OBBInstanceSegmentation/blob/master/figure/Completely_Occluded_Experiments.png" width="450px">
 </div>
 
-2. Dense Object IS
+2. Dense Object Instance Segmentation
 <div align=center>
 <img src="https://github.com/zhen6618/OBBInstanceSegmentation/blob/master/figure/Dense_Vis.png" width="900px">
       
