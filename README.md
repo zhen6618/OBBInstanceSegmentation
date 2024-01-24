@@ -38,7 +38,7 @@ The process of knowledge distillation for the OBB prompt encoder and mask decode
 
 ## Robot System Design
 <div align=center>
-<img src="https://github.com/zhen6618/OBBInstanceSegmentation/blob/master/figure/Industrial_Dataset.png" width="600px">
+<img src="https://github.com/zhen6618/OBBInstanceSegmentation/blob/master/figure/Industrial_Dataset_.png" width="600px">
 </div>
 <p align="justify">
 Self-designed robotic system for completely occluded object instance segmentation in the industrial robot assembly environment of the large commercial aircraft C919.
