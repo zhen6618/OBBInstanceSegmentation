@@ -58,7 +58,19 @@ Self-designed robotic system for completely occluded object instance segmentatio
       
 <img src="https://github.com/zhen6618/OBBInstanceSegmentation/blob/master/figure/Dense_Experiments.png" width="450px">
 </div>
-   
+
+## Installation
+```
+pip install lightning
+pip install pytorch
+pip install opencv-python pycocotools matplotlib onnxruntime onnx
+pip install -U openmim
+mim install mmcv-full
+mim install mmdet\<3.0.0
+pip install mmrotate
+```   
+
+## Prepare Your Dataset
 
 ## Training
 ```
