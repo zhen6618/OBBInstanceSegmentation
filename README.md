@@ -56,7 +56,7 @@ Self-designed robotic system for completely occluded object instance segmentatio
 <div align=center>
 <img src="https://github.com/zhen6618/OBBInstanceSegmentation/blob/master/figure/Dense_Vis.png" width="900px">
       
-<img src="https://github.com/zhen6618/OBBInstanceSegmentation/blob/master/figure/Dense_Experiments.png" width="450px">
+<img src="https://github.com/zhen6618/OBBInstanceSegmentation/blob/master/figure/Dense_Experiments_.png" width="450px">
 </div>
 
 ## Installation
