@@ -98,16 +98,14 @@ python OBB_Prompt_based_Segmentation_Module/OSM_KD/inference.py
 ```
 
 ## Citation
-<!--
 ```
-@InProceedings{zhou2024completely,
-      title={Completely Occluded and Dense Object Instance Segmentation Using Box Prompt-Based Segmentation Foundation Models}, 
+@InProceedings{zhou2024efficientinstancesegmentationframework,
+      title={An Efficient Instance Segmentation Framework Based on Oriented Bounding Boxes}, 
       author={Zhen Zhou and Junfeng Fan and Yunkai Ma and Sihan Zhao and Fengshui Jing and Min Tan},
       year={2024},
       booktitle={arXiv preprint arXiv:2401.08174},
 }
 ```
--->
 
 ## Acknowledgement
 [lightning-sam](https://github.com/luca-medeiros/lightning-sam?tab=readme-ov-file)
