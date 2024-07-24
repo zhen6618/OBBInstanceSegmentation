@@ -8,7 +8,7 @@ Instance segmentation in unmanned aerial vehicle (UAV) measurement is a long-sta
 <img src="https://github.com/zhen6618/OBBInstanceSegmentation/blob/master/figure/Task_Introduction.png" width="500px">
 </div>
 <p align="justify">
-Examples of completely occluded (left) and dense (right) objects. Original objects are inside the corresponding black dotted boxes. Left: reference holes (blue) are occluded by bolts or nuts (i.e., occluders, shown in red). Oriented bounding boxes (green) contain occluder boundaries (orange) that are located at the contact surface between occluders and occluded reference holes. Right: dense vehicles (red) are surrounded by horizontal bounding boxes (yellow) or oriented bounding boxes (green).
+For instance segmentation in UAV measurement, (a): HBB introduces many interference objects. (b): The ``segmentation within bounding box'' paradigm limits the segmentation to be performed mainly within the detected OBB, making the segmentation performance overly dependent on the OBB detection performance. Once the OBB detection is inaccurate, the mask segmentation will also be affected. (c) The proposed OBSeg only uses OBB as a prompt to guide object segmentation, so the segmentation result is less dependent on OBB detection performance. Although the OBB detection is inaccurate, the mask can be segmented accurately.
 </p>
 
 ## Method
