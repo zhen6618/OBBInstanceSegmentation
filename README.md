@@ -37,10 +37,8 @@ The process of knowledge distillation for the OBB prompt encoder and mask decode
 </p>
 
 ## Experiments
-1. Completely Occluded Object Instance Segmentation
 <div align=center>
 <img src="https://github.com/zhen6618/OBBInstanceSegmentation/blob/master/figure/Vis" width="900px">
-      
 </div>
 
 
