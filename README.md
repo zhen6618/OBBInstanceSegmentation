@@ -38,7 +38,7 @@ The process of knowledge distillation for the OBB prompt encoder and mask decode
 
 ## Experiments
 <div align=center>
-<img src="https://github.com/zhen6618/OBBInstanceSegmentation/blob/master/figure/Vis" width="900px">
+<img src="https://github.com/zhen6618/OBBInstanceSegmentation/blob/master/figure/Vis.png" width="900px">
 </div>
 
 
