@@ -14,7 +14,7 @@ For instance segmentation in UAV measurement, (a): HBB introduces many interfere
 ## Method
 1. OBSeg 
 <div align=center>
-<img src="https://github.com/zhen6618/OBBInstanceSegmentation/blob/master/figure/Methods_Overview.png" width="1000px"> 
+<img src="https://github.com/zhen6618/OBBInstanceSegmentation/blob/master/figure/Methods.png" width="1000px"> 
 </div>
 <p align="justify">
 Architecture of the proposed CFNet. Compared with dense object instance segmentation, completely occluded object instance segmentation needs more post-processing steps to transform occluder instances into occludee instances.
