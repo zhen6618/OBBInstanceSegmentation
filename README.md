@@ -12,7 +12,7 @@ For instance segmentation in UAV measurement, (a): HBB introduces many interfere
 </p>
 
 ## Method
-1. CFNet 
+1. OBSeg 
 <div align=center>
 <img src="https://github.com/zhen6618/OBBInstanceSegmentation/blob/master/figure/Methods_Overview.png" width="1000px"> 
 </div>
