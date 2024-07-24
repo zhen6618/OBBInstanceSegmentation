@@ -81,6 +81,7 @@ python OBB_Prompt_based_Segmentation_Module/OSM_KD/inference.py
 ```
 
 ## Citation
+<!--
 ```
 @InProceedings{zhou2024efficientinstancesegmentationframework,
       title={An Efficient Instance Segmentation Framework Based on Oriented Bounding Boxes}, 
@@ -89,6 +90,7 @@ python OBB_Prompt_based_Segmentation_Module/OSM_KD/inference.py
       booktitle={arXiv preprint arXiv:2401.08174},
 }
 ```
+-->
 
 ## Acknowledgement
 [lightning-sam](https://github.com/luca-medeiros/lightning-sam?tab=readme-ov-file)
