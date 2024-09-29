@@ -8,7 +8,7 @@ Instance segmentation in remote sensing images is a long-standing challenge. Sin
 <img src="https://github.com/zhen6618/OBBInstanceSegmentation/blob/master/figure/Task_Introduction.png" width="500px">
 </div>
 <p align="justify">
-For instance segmentation in UAV measurement, (a): HBB introduces many interference objects. (b): The ``segmentation within bounding box'' paradigm limits the segmentation to be performed mainly within the detected OBB, making the segmentation performance overly dependent on the OBB detection performance. Once the OBB detection is inaccurate, the mask segmentation will also be affected. (c) The proposed OBSeg only uses OBB as a prompt to guide object segmentation, so the segmentation result is less dependent on OBB detection performance. Although the OBB detection is inaccurate, the mask can be segmented accurately.
+For instance segmentation in remote sensing images, (a): HBB introduces many interference objects. (b): The ``segmentation within bounding box'' paradigm limits the segmentation to be performed mainly within the detected OBB, making the segmentation performance overly dependent on the OBB detection performance. Once the OBB detection is inaccurate, the mask segmentation will also be affected. (c) The proposed OBSeg only uses OBB as a prompt to guide object segmentation, so the segmentation result is less dependent on OBB detection performance. Although the OBB detection is inaccurate, the mask can be segmented accurately.
 </p>
 
 ## Method
